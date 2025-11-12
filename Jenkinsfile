@@ -38,13 +38,13 @@ pipeline {
                     echo Running Python Script via Jenkins
                     echo =======================================
 
-                    if not exist test_script.py (
-                        echo File test_script.py not found!
+                    if not exist test_script (
+                        echo File test_script not found!
                         exit /b 1
                     )
 
                     call %PYTHON_ENV%\\Scripts\\activate
-                    python test_script.py
+                    python test_script
 
                     if %errorlevel% neq 0 (
                         echo Python script failed with exit code %errorlevel%
