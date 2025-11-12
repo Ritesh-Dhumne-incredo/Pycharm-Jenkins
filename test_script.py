@@ -1,5 +1,5 @@
 # test_script.py
-print("🚀 Running Python script from Jenkins!")
+print(" Running Python script from Jenkins!")
 
 
 def add_numbers(a, b):
@@ -7,4 +7,4 @@ def add_numbers(a, b):
 
 
 result = add_numbers(5, 7)
-print(f"✅ Result: {result}")
+print(f" Result: {result}")
