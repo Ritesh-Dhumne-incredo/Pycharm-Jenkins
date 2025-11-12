@@ -44,7 +44,7 @@ pipeline {
                     )
 
                     call %PYTHON_ENV%\\Scripts\\activate
-                    python test_script
+                    python test_script.py
 
                     if %errorlevel% neq 0 (
                         echo Python script failed with exit code %errorlevel%
