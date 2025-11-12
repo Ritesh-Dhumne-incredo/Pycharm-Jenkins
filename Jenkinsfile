@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Repo') {
             steps {
                 echo "🧾 Checking out repository..."
-                git branch: 'main', url: 'https://github.com/Hritik-Incredo/SStream.git'
+                git branch: 'main', url: 'https://github.com/Ritesh-Dhumne-incredo/Pycharm-Jenkins.git'
             }
         }
 
