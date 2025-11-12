@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout Repo') {
             steps {
-                echo "🧾 Checking out repository..."
+                echo " Checking out repository..."
                 git branch: 'main', url: 'https://github.com/Ritesh-Dhumne-incredo/Pycharm-Jenkins.git'
             }
         }
@@ -19,14 +19,14 @@ pipeline {
             steps {
                 bat '''
                     echo =======================================
-                    echo 🧩 Setting up Python Virtual Environment
+                    echo Setting up Python Virtual Environment
                     echo =======================================
 
                     python -m venv %PYTHON_ENV%
                     call %PYTHON_ENV%\\Scripts\\activate
                     python -m pip install --upgrade pip
 
-                    echo ✅ Python environment ready.
+                    echo Python environment ready.
                 '''
             }
         }
@@ -35,11 +35,11 @@ pipeline {
             steps {
                 bat '''
                     echo =======================================
-                    echo 🚀 Running Python Script via Jenkins
+                    echo Running Python Script via Jenkins
                     echo =======================================
 
                     if not exist test_script.py (
-                        echo ❌ File test_script.py not found!
+                        echo File test_script.py not found!
                         exit /b 1
                     )
 
@@ -47,10 +47,10 @@ pipeline {
                     python test_script.py
 
                     if %errorlevel% neq 0 (
-                        echo ❌ Python script failed with exit code %errorlevel%
+                        echo Python script failed with exit code %errorlevel%
                         exit /b %errorlevel%
                     ) else (
-                        echo ✅ Python script executed successfully!
+                        echo Python script executed successfully!
                     )
                 '''
             }
@@ -59,13 +59,13 @@ pipeline {
 
     post {
         always {
-            echo "🧾 Jenkins pipeline finished."
+            echo "Jenkins pipeline finished."
         }
         success {
-            echo "✅ Python script ran successfully — pipeline passed!"
+            echo "Python script ran successfully — pipeline passed!"
         }
         failure {
-            echo "❌ Jenkins pipeline failed — check logs for details."
+            echo "Jenkins pipeline failed — check logs for details."
         }
     }
 }
