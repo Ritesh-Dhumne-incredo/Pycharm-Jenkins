@@ -4,7 +4,6 @@ pipeline {
 
     environment {
         PYTHON_ENV = 'venv'
-        SCRIPT_PATH = 'test_script.py'
     }
 
     stages {
@@ -19,15 +18,15 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 bat '''
-                    echo ==============================
-                    echo Creating and Activating Python venv
-                    echo ==============================
+                    echo =======================================
+                    echo 🧩 Setting up Python Virtual Environment
+                    echo =======================================
 
                     python -m venv %PYTHON_ENV%
                     call %PYTHON_ENV%\\Scripts\\activate
                     python -m pip install --upgrade pip
 
-                    echo ✅ Virtual environment ready.
+                    echo ✅ Python environment ready.
                 '''
             }
         }
@@ -35,29 +34,27 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 bat '''
-                    echo ==============================
-                    echo Running Python Script
-                    echo ==============================
+                    echo =======================================
+                    echo 🚀 Running Python Script via Jenkins
+                    echo =======================================
 
-                    call %PYTHON_ENV%\\Scripts\\activate
-
-                    if not exist "%SCRIPT_PATH%" (
-                        echo ❌ File %SCRIPT_PATH% not found!
-                        dir
+                    if not exist test_script.py (
+                        echo ❌ File test_script.py not found!
                         exit /b 1
                     )
 
-                    python "%SCRIPT_PATH%"
-                    if %ERRORLEVEL% NEQ 0 (
-                        echo ❌ Python script failed with exit code %ERRORLEVEL%
-                        exit /b %ERRORLEVEL%
+                    call %PYTHON_ENV%\\Scripts\\activate
+                    python test_script.py
+
+                    if %errorlevel% neq 0 (
+                        echo ❌ Python script failed with exit code %errorlevel%
+                        exit /b %errorlevel%
                     ) else (
-                        echo ✅ Python script ran successfully!
+                        echo ✅ Python script executed successfully!
                     )
                 '''
             }
         }
-
     }
 
     post {
@@ -65,11 +62,10 @@ pipeline {
             echo "🧾 Jenkins pipeline finished."
         }
         success {
-            echo "✅ Python script executed successfully!"
+            echo "✅ Python script ran successfully — pipeline passed!"
         }
         failure {
-            echo "❌ Python script failed — check above logs."
+            echo "❌ Jenkins pipeline failed — check logs for details."
         }
     }
-
 }
